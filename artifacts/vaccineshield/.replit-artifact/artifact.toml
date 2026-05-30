@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "VaccineShield Pro"
+version = "1.0.0"
+id = "artifacts/vaccineshield"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22428
+
+[services.development]
+run = "pnpm --filter @workspace/vaccineshield run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/vaccineshield", "run", "build" ]
+publicDir = "artifacts/vaccineshield/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22428"
+BASE_PATH = "/"
